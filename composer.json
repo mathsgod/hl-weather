@@ -1,7 +1,6 @@
 {
     "name": "hostlink/weather",
     "description": "Hong Kong weather forecast",
-    "version": "1.0.2",
     "autoload": {
         "psr-4": {
             "HL\\":"/"
