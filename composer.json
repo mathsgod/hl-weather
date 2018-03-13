@@ -3,7 +3,7 @@
     "description": "Hong Kong weather forecast",
     "autoload": {
         "psr-4": {
-            "HL\\":"/"
+            "HL\\": "/"
         }
     },
     "authors": [
@@ -11,5 +11,6 @@
             "name": "Raymond Chong",
             "email": "raymond@hostlink.com.hk"
         }
-    ]
-} 
+    ],
+    "version": "1.0.0"
+}
