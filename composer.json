@@ -1,5 +1,5 @@
 {
-    "name": "hostlink/weather",
+    "name": "mathsgod/hl-weather",
     "description": "Hong Kong weather forecast",
     "autoload": {
         "psr-4": {
