@@ -26,8 +26,8 @@ class Weather
             $v = [];
             $v["date"] = date("Y-m-d", strtotime("today +$i day"));
             $range = explode("-", $s);
-            $v["range"]["min"] = trim($range[0]);
-            $v["range"]["max"] = trim($range[1]);
+            $v["low"] = trim($range[0]);
+            $v["high"] = trim($range[1]);
 
             $this->forecast[] = $v;
         }
