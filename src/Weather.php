@@ -3,39 +3,39 @@ namespace HL;
 
 class Weather
 {
-    protected $data;
+    protected $forecast;
+    private $rss = [
+        "hk" => "https://rss.weather.gov.hk/rss/SeveralDaysWeatherForecast_uc.xml",
+        "en" => "https://rss.weather.gov.hk/rss/SeveralDaysWeatherForecast.xml",
+        "cn" => "https://rss.weather.gov.hk/sc/rss/SeveralDaysWeatherForecast_uc.xml"
+    ];
 
     public function __construct()
     {
-        $BASE_URL = "http://query.yahooapis.com/v1/public/yql";
-        //$yql_query = 'select * from weather.forecast where woeid in (24865698,12467924,2165352)';
-        $yql_query = 'select * from weather.forecast where woeid in (2165352) and u="c"';
-        $yql_query_url = $BASE_URL . "?q=" . urlencode($yql_query) . "&format=json";
-        // Make call with cURL
-        $session = curl_init($yql_query_url);
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        $json = curl_exec($session);
-        // Convert JSON to PHP object
-        $this->data =  json_decode($json, true);
-    }
+        $r = $this->rss["en"];
+        $xml = new \SimpleXMLElement(file_get_contents($r));
 
-    public function data()
-    {
-        return $this->data;
-    }
+        $description = $xml->xpath("/rss/channel/item/description")[0];
 
-    public function get()
-    {
-        return $this->data["query"]["results"]["channel"];
+        //preg_match_all("/Date\/Month:[\s]*([\w\W]*?)<br/", $description, $matches1);
+        preg_match_all("/Temp range:[\s]*([\w\W]*?)C<br/", $description, $matches);
+        $i = 0;
+        foreach ($matches[1] as  $match) {
+            $i++;
+            $s = str_replace("\n", "", $match);
+            $v = [];
+            $v["date"] = date("Y-m-d", strtotime("today +$i day"));
+            $range = explode("-", $s);
+            $v["range"]["min"] = trim($range[0]);
+            $v["range"]["max"] = trim($range[1]);
+
+            $this->forecast[] = $v;
+        }
     }
 
     public function forecast()
     {
 
-        $d = $this->data["query"]["results"]["channel"]["item"]["forecast"];
-        return array_map(function ($a) {
-            $a["date"] = date("Y-m-d", strtotime($a["date"]));
-            return $a;
-        }, $d);
+        return $this->forecast;
     }
 }

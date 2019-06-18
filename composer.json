@@ -3,7 +3,7 @@
     "description": "Hong Kong weather forecast",
     "autoload": {
         "psr-4": {
-            "HL\\": "/src/"
+            "HL\\": "src/"
         }
     },
     "authors": [

@@ -60,7 +60,7 @@ class ComposerStaticInit0bcc58a5ca4921f80b46ea22676154fb
         ),
         'HL\\' => 
         array (
-            0 => '/',
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
