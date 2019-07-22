@@ -1,41 +1,38 @@
 <?
+
 namespace HL;
 
 class Weather
 {
     protected $forecast;
-    private $rss = [
-        "hk" => "https://rss.weather.gov.hk/rss/SeveralDaysWeatherForecast_uc.xml",
-        "en" => "https://rss.weather.gov.hk/rss/SeveralDaysWeatherForecast.xml",
-        "cn" => "https://rss.weather.gov.hk/sc/rss/SeveralDaysWeatherForecast_uc.xml"
-    ];
+    private $url = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang={lang}";
 
-    public function __construct()
+    public function __construct($lang = "en")
     {
-        $r = $this->rss["en"];
-        $xml = new \SimpleXMLElement(file_get_contents($r));
 
-        $description = $xml->xpath("/rss/channel/item/description")[0];
+        $url = str_replace(["{lang}"], [$lang], $this->url);
 
-        //preg_match_all("/Date\/Month:[\s]*([\w\W]*?)<br/", $description, $matches1);
-        preg_match_all("/Temp range:[\s]*([\w\W]*?)C<br/", $description, $matches);
-        $i = 0;
-        foreach ($matches[1] as  $match) {
-            $i++;
-            $s = str_replace("\n", "", $match);
+        $data = json_decode(file_get_contents($url), true);
+
+        $weatherForecast = $data["weatherForecast"];
+
+        $this->forecast = [];
+
+        foreach ($weatherForecast as $d) {
             $v = [];
-            $v["date"] = date("Y-m-d", strtotime("today +$i day"));
-            $range = explode("-", $s);
-            $v["low"] = trim($range[0]);
-            $v["high"] = trim($range[1]);
-
+            $v["date"] = substr($d["forecastDate"], 0, 4) . "-" . substr($d["forecastDate"], 4, 2) . "-" . substr($d["forecastDate"], 6, 2);
+            $v["low"] = $d["forecastMintemp"]["value"];
+            $v["high"] = $d["forecastMaxtemp"]["value"];
+            $v["unit"] = $d["forecastMaxtemp"]["unit"];
+            $v["forecastWind"] = $d["forecastWind"];
+            $v["forecastWeather"] = $d["forecastWeather"];
+            $v["forecastIcon"] = $d["ForecastIcon"];
             $this->forecast[] = $v;
         }
     }
 
     public function forecast()
     {
-
         return $this->forecast;
     }
 }
