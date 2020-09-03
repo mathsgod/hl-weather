@@ -20,5 +20,6 @@
     },
     "scripts": {
         "test": "phpunit tests"
-    }
+    },
+    "license": "proprietary"
 }
