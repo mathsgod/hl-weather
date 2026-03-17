@@ -88,5 +88,5 @@ composer test
 
 ## License
 
-Proprietary
+MIT
 
