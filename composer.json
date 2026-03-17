@@ -21,5 +21,6 @@
     "scripts": {
         "test": "phpunit tests"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "abandoned": "mathsgod/hko-weather"
 }

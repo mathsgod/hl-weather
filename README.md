@@ -2,6 +2,12 @@
 
 # hl-weather
 
+> ⚠️ **This package is abandoned.** Please use [mathsgod/hko-weather](https://github.com/mathsgod/hko-weather) instead.
+>
+> ```bash
+> composer require mathsgod/hko-weather
+> ```
+
 A PHP library for fetching Hong Kong weather forecasts from the [Hong Kong Observatory Open Data API](https://data.weather.gov.hk/weatherAPI/doc/HKO_Open_Data_API_Documentation.pdf).
 
 ## Requirements
