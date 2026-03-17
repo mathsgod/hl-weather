@@ -49,6 +49,37 @@ Each entry in the returned array contains:
 
 Returns 9 days of forecast data.
 
+### Example output
+
+```
+Array
+(
+    [0] => Array
+        (
+            [date] => 2026-03-18
+            [low] => 21
+            [high] => 26
+            [unit] => C
+            [forecastWind] => East force 2 to 3.
+            [forecastWeather] => Mainly cloudy. One or two light rain patches at first. Warm with sunny periods during the day. Coastal mist at night.
+            [forecastIcon] => 51
+        )
+
+    [1] => Array
+        (
+            [date] => 2026-03-19
+            [low] => 21
+            [high] => 27
+            [unit] => C
+            [forecastWind] => Light winds force 2.
+            [forecastWeather] => Sunny periods. Coastal fog in the morning. Rather warm during the day.
+            [forecastIcon] => 83
+        )
+
+    ...
+)
+```
+
 ## Testing
 
 ```bash
